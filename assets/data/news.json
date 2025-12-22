@@ -1,0 +1,41 @@
+{
+  "items": [
+    {
+      "slug": "beneficios-2026",
+      "title": "Beneficios 2026",
+      "date": "2025-12-22",
+      "excerpt": "Conocé beneficios y acompañamiento para estudiantes durante el ciclo lectivo.",
+      "content": "",
+      "image": "/assets/img/novedades/beneficios.jpeg",
+      "category": ["INSTITUCIONAL"]
+    },
+    {
+      "slug": "medios-de-pago",
+      "title": "Medios de pago",
+      "date": "2025-12-22",
+      "excerpt": "Información sobre aranceles y formas de pago habilitadas (actualización institucional).",
+      "content": "",
+      "image": "/assets/img/novedades/pagos.jpeg",
+      "category": ["ARANCELES"]
+    },
+    {
+      "slug": "requisitos-inscripcion",
+      "title": "Requisitos de inscripción",
+      "date": "2025-12-22",
+      "excerpt": "Documentación y requisitos para completar la inscripción 2026.",
+      "content": "",
+      "image": "/assets/img/novedades/requisitos.jpeg",
+      "category": ["INSCRIPCIONES"]
+    },
+    {
+      "slug": "acto-institucional",
+      "title": "Acto institucional",
+      "date": "2025-12-22",
+      "excerpt": "Compartimos imágenes y novedades de actividades institucionales.",
+      "content": "",
+      "image": "/assets/img/autoridades/acto.png",
+      "category": ["INSTITUCIONAL"]
+    }
+  ]
+}
+

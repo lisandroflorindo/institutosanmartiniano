@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instituto Sanmartiniano | Novedades</title>
+  <meta name="description" content="Novedades, comunicados y fechas importantes del Instituto Superior Sanmartiniano." />
+  <link rel="icon" href="../assets/icons/favicon.ico" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/pages/novedades.css" />
+</head>
+
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" style="background-image:url('../assets/img/hero/banner.png')">
+      <div class="container hero__inner">
+        <h1>NOVEDADES</h1>
+        <p>Comunicados, fechas importantes y actividades del instituto.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="/pages/inscripciones.html">Inscripciones</a>
+          <a class="btn btn--ghost" href="/pages/contacto.html">Contacto</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Últimas novedades</h2>
+        </div>
+
+        <!-- Controles (opcional, pero queda bien) -->
+        <div class="newsbar">
+          <input id="news-search" class="newsbar__search" type="search" placeholder="Buscar..." aria-label="Buscar noticias" />
+          <select id="news-filter" class="newsbar__filter" aria-label="Filtrar por categoría">
+            <option value="all">Todas</option>
+          </select>
+        </div>
+
+        <!-- LISTADO TIPO INCADE -->
+        <div id="news-list" class="post-list" aria-live="polite"></div>
+
+        <div class="news-footer">
+          <button id="news-more" class="btn btn--ghost" type="button">Cargar más</button>
+          <p id="news-empty" class="hint" style="display:none;">No se encontraron novedades con esos filtros.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL NOVEDAD (Ver más) -->
+  <div id="news-modal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-modal-close></div>
+
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal__close" type="button" aria-label="Cerrar" data-modal-close>✕</button>
+
+      <div class="modal__media">
+        <img id="modal-img" src="" alt="" />
+      </div>
+
+      <div class="modal__content">
+        <div class="modal__meta">
+          <span id="modal-date"></span>
+          <span id="modal-tag" class="post-tag"></span>
+        </div>
+
+        <h3 id="modal-title"></h3>
+        <p id="modal-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/include.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/novedades.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+/* Instituto específico */
+.section-sub{
+  margin:6px 0 0;
+  opacity:.85;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:16px;
+}
+
+/* Autoridades */
+.staff-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:16px;
+  margin-top:14px;
+}
+
+.staff-card{
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+}
+
+.staff-photo{
+  height: 210px;
+  background: var(--muted);
+}
+
+.staff-photo img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+.staff-body{
+  padding: 16px;
+}
+
+.staff-body h3{
+  margin:0 0 6px;
+}
+
+.staff-role{
+  margin:0 0 10px;
+  color: var(--blue);
+  font-weight:700;
+}
+
+.staff-text{
+  margin:0;
+  opacity:.86;
+}
+
+.hint{
+  margin-top:14px;
+  opacity:.8;
+}
+
+/* Galería */
+.gallery{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:16px;
+  margin-top:14px;
+}
+
+.gallery-item{
+  border-radius: var(--radius);
+  overflow:hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: var(--muted);
+  height: 220px;
+}
+
+.gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+/* San Martín */
+.sanmartin{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:16px;
+  align-items:stretch;
+  margin-top:14px;
+}
+
+.sanmartin__media{
+  border-radius: var(--radius);
+  overflow:hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: var(--muted);
+  min-height: 320px;
+}
+
+.sanmartin__media img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 920px){
+  .info-grid{ grid-template-columns:1fr; }
+  .staff-grid{ grid-template-columns:1fr; }
+  .gallery{ grid-template-columns:1fr; }
+  .gallery-item{ height: 200px; }
+  .sanmartin{ grid-template-columns:1fr; }
+  .sanmartin__media{ min-height: 240px; }
+}

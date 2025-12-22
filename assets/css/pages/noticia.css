@@ -1,0 +1,147 @@
+.post{
+  margin: 14px auto 0;         /* centrado */
+  max-width: 820px;            /* más compacto */
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+
+/* Imagen más baja (se ve completa en pantalla sin “gigantearse”) */
+.post__img{
+  height: 320px;               /* controlamos altura real */
+  background:#fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.post__img img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  object-position: center;
+  display:block;
+}
+
+.post__body{
+  padding:14px 16px 18px;      /* un poco menos de padding */
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.post__meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  opacity:.85;
+  font-weight:800;
+}
+
+.post__tag{
+  padding:6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(11,61,145,.06);
+  color: var(--blue);
+  font-weight:900;
+  font-size: 12px;
+}
+
+.post__title{
+  margin:0;
+  color: var(--blue);
+  font-size: 24px;             /* título más balanceado */
+  line-height: 1.2;
+}
+
+.post__text{
+  margin:0;
+  opacity:.92;
+  line-height:1.65;
+  white-space: pre-wrap;
+}
+
+/* imagen clickeable */
+.post__img{
+  cursor: zoom-in;
+  position: relative;
+}
+
+.post__img::after{
+  content:"Ampliar";
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  padding:6px 10px;
+  border-radius: 999px;
+  background: rgba(2,6,23,.55);
+  color:#fff;
+  font-weight:900;
+  font-size:12px;
+  opacity:0;
+  transform: translateY(4px);
+  transition: .15s ease;
+}
+
+.post__img:hover::after{
+  opacity:1;
+  transform: translateY(0);
+}
+
+/* ===== Lightbox ===== */
+.img-modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.img-modal.is-open{
+  display: block;
+}
+
+.img-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(2,6,23,.70);
+}
+
+.img-modal__dialog{
+  position: relative;
+  width: min(1100px, calc(100% - 24px));
+  margin: 18px auto;
+  background: transparent;
+  border-radius: 18px;
+}
+
+.img-modal__close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(2,6,23,.55);
+  color:#fff;
+  cursor:pointer;
+  font-size: 18px;
+}
+
+#img-modal-src{
+  width: 100%;
+  height: calc(100vh - 60px);
+  object-fit: contain;
+  display:block;
+  background: transparent;
+}
+
+
+/* Responsive */
+@media (max-width: 520px){
+  .post{ max-width: 100%; }
+  .post__img{ height: 220px; }
+  .post__title{ font-size: 20px; }
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.institutosanmartiniano.com.ar/sitemap.xml

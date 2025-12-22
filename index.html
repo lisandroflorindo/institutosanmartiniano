@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instituto Sanmartiniano</title>
+  <meta name="description" content="Sitio web institucional del Instituto Sanmartiniano. Carreras, novedades e información institucional." />
+  <link rel="icon" href="/assets/icons/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages/home.css" />
+</head>
+
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" style="background-image:url('/assets/img/hero/insigna2.jpg')">
+      <div class="container hero__inner">
+        <h1>INSTITUTO SUPERIOR SANMARTINIANO</h1>
+        <p>Tu educacion es un viaje, no una carrera. Disfrutá cada paso del camino.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="/pages/carreras.html">Ver carreras</a>
+          <a class="btn btn--ghost" href="/pages/contacto.html">Hacer una consulta</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE EL INSTITUTO -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Sobre el Instituto</h2>
+        </div>
+
+        <div class="about">
+          <div class="about__text">
+            <p class="lead">
+              El Instituto Superior Sanmartiniano es una institución de nivel superior orientada a la formación técnica y profesional. Ofrecemos tecnicaturas con cursada presencial y acompañamiento durante todo el trayecto formativo, con el objetivo de potenciar oportunidades laborales y de desarrollo.
+            </p>
+
+            <div class="about__cta">
+              <a class="btn btn--primary" href="/pages/instituto.html">Ver historia y autoridades</a>
+            </div>
+          </div>
+
+          <div class="about__media">
+            <img
+              src="/assets/img/autoridades/acto.png"
+              alt="Instituto Sanmartiniano"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARRERAS -->
+    <section class="section section--muted">
+      <div class="container">
+        <div class="section-title">
+          <h2>Nuestras Tecnicaturas</h2>
+        </div>
+
+        <div class="cards-media">
+          <a class="card-media" href="/pages/carreras-energias-renovables.html">
+            <div class="card-media__img">
+              <img
+                src="/assets/img/carreras/energiasrenovables3.jpg"
+                alt="Tecnicatura en Energías Renovables"
+                loading="lazy"
+              />
+            </div>
+            <div class="card-media__body">
+              <h3>Tec. Superior en Energías Renovables</h3>
+              <p>Aprendé a diseñar, instalar y gestionar sistemas de energía sustentable, contribuyendo al desarrollo de un mundo más eficiente y sostenible.</p>
+              <span class="card-media__link">Ver carrera →</span>
+            </div>
+          </a>
+
+          <a class="card-media" href="/pages/carreras-obras-viales.html">
+            <div class="card-media__img">
+              <img
+                src="/assets/img/carreras/obrasviales2.jpg"
+                alt="Tecnicatura en Obras Viales"
+                loading="lazy"
+              />
+            </div>
+            <div class="card-media__body">
+              <h3>Tec. Superior en Obras Viales</h3>
+              <p>Si te apasiona la construcción y querés ser parte del desarrollo de grandes proyectos, esta es tu oportunidad. </p>
+              <span class="card-media__link">Ver carrera →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOVEDADES (con imágenes desde JSON) -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Novedades</h2>
+          <a class="link" href="/pages/novedades.html">Ver todas →</a>
+        </div>
+
+        <div class="news-slider">
+          <button class="news-slider__btn" type="button" data-news-dir="-1" aria-label="Anterior">‹</button>
+
+          <div id="news-list" class="news-row" aria-label="Novedades (deslizable)"></div>
+
+          <button class="news-slider__btn" type="button" data-news-dir="1" aria-label="Siguiente">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="section section--muted">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>¿Querés inscribirte o hacer una consulta?</h2>
+            <p>Contactanos para recibir información sobre carreras, requisitos y aranceles.</p>
+          </div>
+          <div class="cta-box__actions">
+            <a class="btn btn--primary" href="/pages/inscripciones.html">Inscripciones</a>
+            <a class="btn btn--ghost" href="/pages/contacto.html">Contacto</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="/assets/js/include.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/news.js"></script>
+</body>
+</html>
+
