@@ -8,6 +8,10 @@
   <link rel="icon" href="/assets/icons/favicon.ico" />
   <link rel="stylesheet" href="/assets/css/styles.css" />
   <link rel="stylesheet" href="/assets/css/pages/contacto.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -17,7 +21,7 @@
     <!-- HERO -->
     <section class="hero" style="background-image:url('/assets/img/hero/contacto.jpg')">
       <div class="container hero__inner">
-        <h1>CONTACTO</h1>
+        <h1 data-typing="CONTACTO" data-typing-speed="40"></h1>
         <p>Escribinos o acercate a nuestra sede.</p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="https://wa.me/5493764282608" target="_blank" rel="noopener">WhatsApp</a>
@@ -115,7 +119,10 @@
               <a class="link" href="https://maps.app.goo.gl/wp9TSvr6ARjV7n2F7" target="_blank" rel="noopener">Abrir en Google Maps →</a>
             </div>
 
-            <div class="contact-card__map">
+            <div class="contact-card__map
+            map-box" data-map>
+              <div class="map-overlay">Click para activar el mapa</div>
+
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1142.658143706426!2d-55.90425489635626!3d-27.381663620358857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9457be456cd50a73%3A0x4852aa52a680a422!2sLuchessi%202583%2C%20N3301%20Posadas%2C%20Misiones!5e0!3m2!1ses-419!2sar!4v1766432336253!5m2!1ses-419!2sar"
                 width="600"
@@ -127,6 +134,7 @@
                 title="Mapa - Instituto Superior Sanmartiniano"
               ></iframe>
             </div>
+
           </article>
         </div>
       </div>

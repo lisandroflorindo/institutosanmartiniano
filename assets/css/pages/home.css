@@ -1,4 +1,4 @@
-/* Home específico (si querés ajustar bloques luego) */
+/* Home específico */
 .section-title{
   display:flex;
   align-items:flex-end;
@@ -69,7 +69,7 @@
 }
 
 .card-media:hover{
-  transform: translateY(-20px);
+  transform: translateY(-6px); /* -20px era demasiado en desktop */
 }
 
 .card-media__img{
@@ -102,73 +102,6 @@
   font-weight: 700;
 }
 
-/* Novedades: */
-.news-card__img{
-  height: 350px;              /* podés subir/bajar */
-  overflow: hidden;
-  background: #ffffff;
-  margin-bottom: 10px;
-  padding: 5px;              /* aire alrededor */
-}
-
-.news-card__img img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;        /* CLAVE: se ve completa */
-  object-position: center;
-}
-
-/* ===== Novedades slider horizontal ===== */
-.news-slider{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.news-slider__btn{
-  width:44px;
-  height:44px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: var(--white);
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  font-size: 26px;
-  line-height: 1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  user-select:none;
-}
-
-.news-row{
-  display:flex;
-  gap:16px;
-  overflow-x:auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior:smooth;
-  padding: 6px 4px 14px;
-  width:100%;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* esconder scrollbar sin romper scroll */
-.news-row::-webkit-scrollbar{ height: 10px; }
-.news-row::-webkit-scrollbar-thumb{
-  background: rgba(15,23,42,.18);
-  border-radius: 999px;
-}
-.news-row::-webkit-scrollbar-track{
-  background: transparent;
-}
-
-/* Cada noticia como "slide" */
-.news-row .news-card{
-  flex: 0 0 340px;           /* ancho card */
-  scroll-snap-align: start;
-}
-
-
 /* CTA final */
 .cta-box{
   display:flex;
@@ -188,47 +121,6 @@
   flex-wrap:wrap;
 }
 
-.news-row{
-  display:flex;
-  gap:16px;
-  overflow-x:auto;
-  scroll-behavior:smooth;
-  padding-bottom: 6px;
-}
-.news-row::-webkit-scrollbar{ height: 8px; }
-.news-card{
-  min-width: 320px;
-  max-width: 360px;
-  flex: 0 0 auto;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow:hidden;
-  text-decoration:none;
-  color: inherit;
-}
-.news-card__img{
-  height: 180px;
-  background:#fff;
-  border-bottom: 1px solid var(--border);
-  padding:10px;               /* para que placas se vean completas */
-}
-.news-card__img img{
-  width:100%;
-  height:100%;
-  object-fit: contain;        /* no recorta */
-  display:block;
-}
-.news-card__body{ padding: 14px 14px 16px; display:flex; flex-direction:column; gap:10px; }
-.news-card__meta{ display:flex; justify-content:space-between; gap:10px; opacity:.9; font-size:13px; }
-.news-card__tag{ font-weight:900; color: var(--blue); }
-.news-card__title{ margin:0; color: var(--blue); }
-.news-card__text{ margin:0; opacity:.9; line-height:1.5; }
-.news-card__more{ font-weight:900; color: var(--blue); }
-.news-row.is-dragging{ cursor: grabbing; }
-
-
 /* Responsive */
 @media (max-width: 920px){
   .about{ grid-template-columns:1fr; }
@@ -236,23 +128,7 @@
   .cta-box{ flex-direction:column; align-items:flex-start; }
 }
 
-/* Tablet */
-@media (max-width: 920px){
-  .news-card__img{
-    height: 200px;
-    padding: 8px;
-  }
-
-  .news-row .news.card{flex-basis:280px; }
-}
-
-/* Mobile */
+/* Mobile: el slider se desliza con dedo, ocultamos flechas */
 @media (max-width: 520px){
-  .news-card__img{
-    height: 175px;
-    padding: 6px;
-  }
-
-  .news-slider__btn{ display:none; }  /* en móvil se desliza con dedo */
-  .news-row .news-card{ flex-basis: 280px; }
+  .news-slider__btn{ display:none; }
 }
