@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Instituto Superior Sanmartiniano | Contacto</title>
   <meta name="description" content="Datos de contacto y ubicación del Instituto Superior Sanmartiniano." />
-  <link rel="icon" href="/assets/icons/favicon.ico" />
+  <link rel="icon" href="/assets/img/brand/Logo3.png" />
   <link rel="stylesheet" href="/assets/css/styles.css" />
   <link rel="stylesheet" href="/assets/css/pages/contacto.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -22,24 +22,19 @@
     <section class="hero" style="background-image:url('/assets/img/hero/contacto.jpg')">
       <div class="container hero__inner">
         <h1 data-typing="CONTACTO" data-typing-speed="40"></h1>
-        <p>Escribinos o acercate a nuestra sede.</p>
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="https://wa.me/5493764282608" target="_blank" rel="noopener">WhatsApp</a>
-          <a class="btn btn--ghost" href="mailto:institutosanmartiniano@gmail.com">Enviar email</a>
-        </div>
+        <p data-aos="fade-up" data-aos-delay="120">Escribinos o acercate a nuestra sede.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
           <h2>Datos y Ubicación</h2>
-          
         </div>
 
         <div class="contact-grid">
-          <!-- CARD: DATOS -->
-          <article class="contact-card">
+          <!-- DATOS -->
+          <article class="contact-card" data-aos="fade-up" data-aos-delay="60">
             <div class="contact-card__header">
               <h3>Datos de contacto</h3>
             </div>
@@ -47,7 +42,9 @@
             <div class="contact-card__body">
               <div class="contact-item">
                 <div class="contact-item__icon">
-                  <img src="/assets/icons/mapa.png" alt="Ubicación" />
+                  <a class="icon-link" href="https://maps.app.goo.gl/wp9TSvr6ARjV7n2F7" target="_blank" rel="noopener" aria-label="Ubicación">
+                    <i class="bx bxs-map"></i>
+                  </a>
                 </div>
                 <div>
                   <strong>Dirección</strong>
@@ -57,7 +54,7 @@
 
               <div class="contact-item">
                 <div class="contact-item__icon">
-                  <img src="/assets/icons/despertador.png" alt="Horarios" />
+                  <i class="bx bxs-alarm"></i>
                 </div>
                 <div>
                   <strong>Horarios</strong>
@@ -67,7 +64,9 @@
 
               <div class="contact-item">
                 <div class="contact-item__icon">
-                  <img src="/assets/icons/whatsapp.png" alt="WhatsApp" />
+                  <a class="icon-link" href="https://wa.me/5493764282608" target="_blank" rel="noopener" aria-label="WhatsApp">
+                    <i class="bx bxl-whatsapp"></i>
+                  </a>
                 </div>
                 <div>
                   <strong>Teléfono / WhatsApp</strong>
@@ -81,19 +80,23 @@
 
               <div class="contact-item">
                 <div class="contact-item__icon">
-                  <img src="/assets/icons/gmail.png" alt="Email" />
+                  <a class="icon-link" href="mailto:info.institutosanmartiniano@gmail.com" aria-label="Email">
+                    <i class="bx bxs-envelope"></i>
+                  </a>
                 </div>
                 <div>
                   <strong>Email</strong>
                   <p>
-                    <a class="link" href="mailto:institutosanmartiniano@gmail.com">institutosanmartiniano@gmail.com</a>
+                    <a class="link" href="mailto:info.institutosanmartiniano@gmail.com">info.institutosanmartiniano@gmail.com</a>
                   </p>
                 </div>
               </div>
 
               <div class="contact-item">
                 <div class="contact-item__icon">
-                  <img src="/assets/icons/instagram.png" alt="Instagram" />
+                  <a class="icon-link" href="https://www.instagram.com/institutosanmartiniano/" target="_blank" rel="noopener" aria-label="Instagram">
+                    <i class="bx bxl-instagram"></i>
+                  </a>
                 </div>
                 <div>
                   <strong>Instagram</strong>
@@ -104,29 +107,61 @@
                   </p>
                 </div>
               </div>
-
-              <div class="contact-actions">
-                <a class="btn btn--primary" href="https://wa.me/5493764282608" target="_blank" rel="noopener">Escribir por WhatsApp</a>
-                <a class="btn btn--ghost" href="/pages/inscripciones.html">Inscripciones</a>
-              </div>
             </div>
           </article>
 
-          <!-- CARD: MAPA -->
-          <article class="contact-card">
+          <!-- FORM -->
+          <article class="contact-card contact-card--form" data-aos="fade-up" data-aos-delay="120">
+            <div class="contact-card__header">
+              <h3>Envianos un mensaje</h3>
+            </div>
+
+            <div class="contact-card__body">
+              <form id="contact-form" class="contact-form" data-validate novalidate>
+                <input class="hp-field" type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true">
+
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="c-nombre"><strong>Nombre</strong></label>
+                    <input id="c-nombre" name="nombre" type="text" required minlength="2" maxlength="60">
+                  </div>
+
+                  <div class="field">
+                    <label for="c-apellido"><strong>Apellido</strong></label>
+                    <input id="c-apellido" name="apellido" type="text" required minlength="2" maxlength="60">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="c-email"><strong>Email</strong></label>
+                  <input id="c-email" name="email" type="email" required maxlength="120">
+                </div>
+
+                <div class="field">
+                  <label for="c-mensaje"><strong>Consulta</strong></label>
+                  <textarea id="c-mensaje" name="mensaje" required minlength="10" maxlength="1200"></textarea>
+                </div>
+
+                <p class="form-hint" style="display:none;"></p>
+
+                <button class="btn btn--primary" type="submit">Enviar consulta</button>
+
+                <p class="contact-ok" style="display:none;"></p>
+              </form>
+            </div>
+          </article>
+
+          <!-- MAPA -->
+          <article class="contact-card contact-card--map" data-aos="fade-up" data-aos-delay="180">
             <div class="contact-card__header">
               <h3>Ubicación</h3>
               <a class="link" href="https://maps.app.goo.gl/wp9TSvr6ARjV7n2F7" target="_blank" rel="noopener">Abrir en Google Maps →</a>
             </div>
 
-            <div class="contact-card__map
-            map-box" data-map>
+            <div class="contact-card__map map-box" data-map>
               <div class="map-overlay">Click para activar el mapa</div>
-
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1142.658143706426!2d-55.90425489635626!3d-27.381663620358857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9457be456cd50a73%3A0x4852aa52a680a422!2sLuchessi%202583%2C%20N3301%20Posadas%2C%20Misiones!5e0!3m2!1ses-419!2sar!4v1766432336253!5m2!1ses-419!2sar"
-                width="600"
-                height="450"
                 style="border:0;"
                 allowfullscreen=""
                 loading="lazy"
@@ -134,7 +169,6 @@
                 title="Mapa - Instituto Superior Sanmartiniano"
               ></iframe>
             </div>
-
           </article>
         </div>
       </div>

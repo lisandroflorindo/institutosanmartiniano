@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Instituto Superior Sanmartiniano | Inscripciones</title>
   <meta name="description" content="Inscripciones 2026: requisitos y formularios de preinscripción." />
-  <link rel="icon" href="/assets/icons/favicon.ico" />
+  <link rel="icon" href="/assets/img/brand/Logo3.png" />
   <link rel="stylesheet" href="/assets/css/styles.css" />
   <link rel="stylesheet" href="/assets/css/pages/inscripciones.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -22,19 +22,19 @@
     <section class="hero" style="background-image:url('/assets/img/hero/inscripciones.png')">
       <div class="container hero__inner">
         <h1 data-typing="INSCRIPCIONES 2026" data-typing-speed="40"></h1>
-        <p>Requisitos y formularios de preinscripción.</p>
+        <p data-aos="fade-up" data-aos-delay="120">Requisitos y formularios de preinscripción.</p>
       </div>
     </section>
 
     <!-- PASOS -->
     <section class="section">
       <div class="container">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
           <h2>¿Cómo inscribirse?</h2>
         </div>
 
         <div class="steps">
-          <article class="step">
+          <article class="step" data-aos="fade-up" data-aos-delay="60">
             <span class="step__num">1</span>
             <div>
               <h3>Elegí tu carrera</h3>
@@ -42,7 +42,7 @@
             </div>
           </article>
 
-          <article class="step">
+          <article class="step" data-aos="fade-up" data-aos-delay="120">
             <span class="step__num">2</span>
             <div>
               <h3>Completá el formulario</h3>
@@ -50,7 +50,7 @@
             </div>
           </article>
 
-          <article class="step">
+          <article class="step" data-aos="fade-up" data-aos-delay="180">
             <span class="step__num">3</span>
             <div>
               <h3>Prepará la documentación</h3>
@@ -58,7 +58,7 @@
             </div>
           </article>
 
-          <article class="step">
+          <article class="step" data-aos="fade-up" data-aos-delay="240">
             <span class="step__num">4</span>
             <div>
               <h3>Confirmación</h3>
@@ -69,49 +69,48 @@
       </div>
     </section>
 
-    <!-- INSCRIPCIONES: REQUISITOS + FORMULARIO (2 CARDS) -->
-      <section id="requisitos" class="section">
-        <div class="container">
-          <div class="section-title">
-            <h2>Preinscripciones 2026</h2>
-          </div>
-
-          <div class="insc-grid">
-            <!-- CARD REQUISITOS -->
-            <article class="insc-card">
-              <div class="insc-card__header">
-                <h3>Requisitos</h3>
-                <a class="link" href="/assets/img/novedades/requisitos.jpeg" target="_blank" rel="noopener">Ver imagen →</a>
-              </div>
-
-              <div class="insc-card__media">
-                <img src="/assets/img/novedades/requisitos.jpeg" alt="Requisitos de preinscripción 2026" loading="lazy" />
-              </div>
-            </article>
-
-            <!-- CARD FORMULARIO -->
-            <article class="insc-card">
-              <div class="insc-card__header">
-                <h3>Formulario de preinscripción</h3>
-                <a id="open-form" class="link" href="#" target="_blank" rel="noopener">Abrir en otra pestaña →</a>
-              </div>
-
-              <div class="form-tabs" role="tablist" aria-label="Formularios de preinscripción">
-                <button class="tab is-active" type="button" data-form="energias" role="tab" aria-selected="true">
-                  Energías Renovables
-                </button>
-                <button class="tab" type="button" data-form="obras" role="tab" aria-selected="false">
-                  Obras Viales
-                </button>
-              </div>
-
-              <div class="insc-card__embed">
-                <iframe id="form-frame" src="" title="Formulario de preinscripción" loading="lazy"></iframe>
-              </div>
-            </article>
-          </div>
+    <!-- INSCRIPCIONES: REQUISITOS + FORMULARIO -->
+    <section id="requisitos" class="section">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Preinscripciones 2026</h2>
         </div>
-      </section>
+
+        <div class="insc-grid">
+          <!-- CARD REQUISITOS -->
+          <article class="insc-card" data-aos="fade-up" data-aos-delay="60">
+            <div class="insc-card__header">
+              <h3>Requisitos</h3>
+              <a class="link" href="/assets/img/novedades/requisitos.jpeg" target="_blank" rel="noopener">Ver imagen →</a>
+            </div>
+
+            <div class="insc-card__media">
+              <img src="/assets/img/novedades/requisitos.jpeg" alt="Requisitos de preinscripción 2026" loading="lazy" />
+            </div>
+          </article>
+
+          <!-- CARD FORMULARIO -->
+          <article class="insc-card" data-aos="fade-up" data-aos-delay="140">
+            <div class="insc-card__header">
+              <h3>Formulario de preinscripción</h3>
+              <a id="open-form" class="link" href="#" target="_blank" rel="noopener">Abrir en otra pestaña →</a>
+            </div>
+
+            <div class="form-tabs" role="tablist" aria-label="Formularios de preinscripción" data-aos="fade-up" data-aos-delay="200">
+              <button class="tab is-active" type="button" data-form="energias" role="tab" aria-selected="true">
+                Energías Renovables
+              </button>
+              <button class="tab" type="button" data-form="obras" role="tab" aria-selected="false">
+                Obras Viales
+              </button>
+            </div>
+
+            <div class="insc-card__embed" data-aos="fade-up" data-aos-delay="260">
+              <iframe id="form-frame" src="" title="Formulario de preinscripción" loading="lazy"></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
   </main>
 

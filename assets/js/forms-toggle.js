@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // URLs reales (embed + abrir)
   const forms = {
     energias: {
-      open: "https://docs.google.com/forms/d/e/1FAIpQLSf9rY5_D3pCNBJPqRbCPKRQVd3V14_6yU6YIepqlgcVAiPd6g/viewform?usp=send_form",
-      embed: "https://docs.google.com/forms/d/e/1FAIpQLSf9rY5_D3pCNBJPqRbCPKRQVd3V14_6yU6YIepqlgcVAiPd6g/viewform?embedded=true"
+      open: "https://forms.gle/5PC9GdkjYw9pYnR89",
+      embed: "https://forms.gle/5PC9GdkjYw9pYnR89"
     },
     obras: {
-      open: "https://docs.google.com/forms/d/e/1FAIpQLSdEMkqOoXI0Y-rKNj0ztkcxht5IMWfrR_ttHk0XUAUB2l-zYQ/viewform?usp=send_form",
-      embed: "https://docs.google.com/forms/d/e/1FAIpQLSdEMkqOoXI0Y-rKNj0ztkcxht5IMWfrR_ttHk0XUAUB2l-zYQ/viewform?embedded=true"
+      open: "https://forms.gle/rhhfcdrEdAFLiT5e7",
+      embed: "https://forms.gle/rhhfcdrEdAFLiT5e7"
     }
   };
 

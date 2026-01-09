@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Instituto Superior Sanmartiniano | Carreras</title>
   <meta name="description" content="Oferta académica del Instituto Sanmartiniano: Energías Renovables y Obras Viales." />
-  <link rel="icon" href="/assets/icons/favicon.ico" />
+  <link rel="icon" href="/assets/img/brand/Logo3.png" />
   <link rel="stylesheet" href="/assets/css/styles.css" />
   <link rel="stylesheet" href="/assets/css/pages/carreras.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
+  <!-- ✅ AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 
 <body>
@@ -21,23 +24,18 @@
     <section class="hero" style="background-image:url('/assets/img/hero/carreras.jpg')">
       <div class="container hero__inner">
         <h1 data-typing="OFERTA ACADÉMICA" data-typing-speed="40"></h1>
-        <p>Conocé nuestras ofertas, modalidad y planes de estudios.</p>
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="/pages/inscripciones.html">Inscripciones</a>
-          <a class="btn btn--ghost" href="/pages/contacto.html">Consultar</a>
-        </div>
+        <p data-aos="fade-up" data-aos-delay="120">Conocé nuestras ofertas, modalidad y planes de estudios.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-up">
           <h2>Tecnicaturas</h2>
         </div>
 
         <div class="career-list">
-          <!-- ENERGÍAS -->
-          <article class="career-card">
+          <article class="career-card" data-aos="fade-up" data-aos-delay="60">
             <div class="career-card__poster">
               <img src="/assets/img/carreras/energiasrenovables.png" alt="Tecnicatura en Energías Renovables" loading="lazy" />
             </div>
@@ -63,8 +61,7 @@
             </div>
           </article>
 
-          <!-- OBRAS VIALES -->
-          <article class="career-card">
+          <article class="career-card" data-aos="fade-up" data-aos-delay="140">
             <div class="career-card__poster">
               <img src="/assets/img/carreras/obrasviales.png" alt="Tecnicatura en Obras Viales" loading="lazy" />
             </div>
@@ -98,6 +95,10 @@
   <div id="site-footer"></div>
 
   <script src="/assets/js/include.js"></script>
+
+  <!-- ✅ AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
   <script src="/assets/js/main.js"></script>
 </body>
 </html>

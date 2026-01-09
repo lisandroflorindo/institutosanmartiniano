@@ -7,6 +7,7 @@
    - Footer year
    - Hook: setupNewsSlider() si existe
    - UX Enhancements
+   - ✅ AOS (solo Inicio / Institución / Carreras)
 ========================= */
 
 function setActiveNavLink() {
@@ -36,6 +37,36 @@ function setActiveNavLink() {
 function setupYear() {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
+}
+
+/* =========================
+   ✅ AOS (solo 3 páginas)
+========================= */
+function setupAOS() {
+  if (!window.AOS) return;
+
+  const path = window.location.pathname.replace(/\/$/, "");
+  const allow = new Set([
+    "", "/",
+    "/index.html",
+    "/pages/instituto.html",
+    "/pages/carreras.html",
+  ]);
+
+  if (!allow.has(path)) return;
+
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReduced) return;
+
+  window.AOS.init({
+    duration: 700,
+    easing: "ease-out",
+    once: true,
+    offset: 80,
+  });
+
+  // por si header/footer se inyectan o cambia el DOM
+  window.AOS.refresh();
 }
 
 /* =========================
@@ -190,6 +221,92 @@ function setupSmoothAnchors() {
   });
 }
 
+function setupContactForm() {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  const hint = form.querySelector(".form-hint");
+  const ok = form.querySelector(".contact-ok");
+  const btn = form.querySelector("button[type='submit']");
+
+  const showError = (msg) => {
+    if (ok) ok.style.display = "none";
+    if (hint) {
+      hint.textContent = msg;
+      hint.style.display = "block";
+    }
+  };
+
+  const showOk = (msg) => {
+    if (hint) hint.style.display = "none";
+    if (ok) {
+      ok.textContent = msg;
+      ok.style.display = "block";
+    }
+  };
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      const firstInvalid = form.querySelector(":invalid");
+      if (firstInvalid) firstInvalid.focus();
+      showError("Revisá los campos marcados. Faltan datos o hay un formato inválido.");
+      return;
+    }
+
+    // Honeypot
+    const hp = form.querySelector("input[name='website']");
+    if (hp && hp.value.trim()) {
+      showOk("¡Listo! Recibimos tu consulta.");
+      form.reset();
+      return;
+    }
+
+    const data = {
+      nombre: form.nombre.value.trim(),
+      apellido: form.apellido.value.trim(),
+      email: form.email.value.trim(),
+      mensaje: form.mensaje.value.trim(),
+    };
+
+    try {
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Enviando...";
+      }
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const out = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        showError(out.error || "No se pudo enviar. Probá de nuevo en unos segundos.");
+        return;
+      }
+
+      showOk("¡Consulta enviada! Te vamos a responder a la brevedad.");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      showError("Error de conexión. Verificá internet e intentá nuevamente.");
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Enviar consulta";
+      }
+    }
+  });
+
+  form.addEventListener("input", () => {
+    if (hint) hint.style.display = "none";
+  });
+}
+
 /* =========================
    Init cuando se cargan componentes
 ========================= */
@@ -199,6 +316,10 @@ document.addEventListener("componentsLoaded", () => {
   setupSmoothAnchors();
   setActiveNavLink();
   setupYear();
+  setupContactForm();
+
+  // ✅ AOS (solo en las 3 páginas permitidas)
+  setupAOS();
 
   // Home slider noticias (si existe setupNewsSlider)
   if (typeof window.setupNewsSlider === "function") {
@@ -208,9 +329,13 @@ document.addEventListener("componentsLoaded", () => {
 
 /* ======================================
    UX Enhancements (sin librerías)
+   ✅ pero sin chocar con AOS
 ====================================== */
 (function () {
   function initReveal() {
+    // ✅ Si hay AOS en la página, NO aplicamos reveal (evita opacity:0 raro)
+    if (document.querySelector("[data-aos]")) return;
+
     const targets = document.querySelectorAll(
       ".section, .card-media, .post-card, .news-card, .contact-card, .cta-box, .about, .post, .news-item, .panel, .card"
     );

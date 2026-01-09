@@ -26,9 +26,8 @@
   display:flex;
   align-items:center;
   justify-content:center;
-  background: rgba(11,61,145,.10);
   color: var(--blue);
-  font-weight:900;
+  font-weight:700;
 }
 
 /* Requisitos */

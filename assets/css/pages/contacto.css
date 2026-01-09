@@ -1,11 +1,20 @@
 .section-sub{ margin:6px 0 0; opacity:.85; }
 
-/* Grid 2 columnas */
 .contact-grid{
   display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap:16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:20px;
   margin-top:14px;
+}
+
+/* Tablet */
+@media (max-width: 1100px){
+  .contact-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+/* Mobile */
+@media (max-width: 980px){
+  .contact-grid{ grid-template-columns: 1fr; }
 }
 
 /* Cards */
@@ -47,7 +56,6 @@
   display:flex;
   gap:12px;
   padding:12px;
-  border:1px solid var(--border);
   border-radius: 14px;
   background:#fff;
   margin:0;                   /* sin margen extra */
@@ -60,7 +68,6 @@
   display:flex;
   align-items:center;
   justify-content:center;
-  background: rgba(11,61,145,.10);
   overflow:hidden;
   flex: 0 0 auto;
 }
@@ -85,10 +92,6 @@
   margin-top:10px;
 }
 
-/* MAPA
-   Ahora usamos .map-box del styles.css (con overlay click-to-enable),
-   por eso acá NO ponemos bordes/sombra al iframe para evitar duplicados.
-*/
 .contact-card__map{
   padding:16px;
   flex: 1;
@@ -108,6 +111,47 @@
   box-shadow: none;
 }
 
+/* ===== FORM CARD ===== */
+.contact-form textarea{ min-height: 140px; }
+.hp-field{ position:absolute; left:-9999px; opacity:0; height:0; width:0; }
+
+.contact-ok{
+  margin:10px 0 0;
+  padding:10px 12px;
+  border-radius: 12px;
+  background: rgba(16,185,129,.10);
+  border: 1px solid rgba(16,185,129,.22);
+  color: #065f46;
+  font-weight: 800;
+}
+
+/* ===== GRID 2 COLS + MAP SPAN 2 ROWS (desktop) ===== */
+@media (min-width: 981px){
+  .contact-grid{
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+
+  /* el mapa a la derecha ocupando alto */
+  .contact-card--map{
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  /* datos y form en la columna izquierda */
+  .contact-card--form{
+    grid-column: 1;
+  }
+}
+
+/* Mobile/Tablet: todo a 1 columna */
+@media (max-width: 980px){
+  .contact-card--map{
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
 /* Responsive */
 @media (max-width: 980px){
   .contact-grid{ grid-template-columns: 1fr; }
@@ -116,4 +160,130 @@
 
 @media (max-width: 520px){
   .contact-card__map.map-box iframe{ height: 360px; }
+}
+
+/* =========================
+   CONTACTO - Layout como imagen
+   Arriba: Datos + Mapa
+   Abajo: Formulario full width
+========================= */
+
+/* Desktop */
+@media (min-width: 981px){
+  .contact-grid{
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+
+  /* Datos: arriba izquierda */
+  .contact-grid > .contact-card:not(.contact-card--form):not(.contact-card--map){
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Mapa: arriba derecha */
+  .contact-card--map{
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* Formulario: abajo, ocupa todo el ancho */
+  .contact-card--form{
+    grid-column: 1 / -1; /* span 2 columnas */
+    grid-row: 2;
+  }
+
+  /* Mapa con altura más razonable (para que no “aplasten” el form) */
+  .contact-card--map .contact-card__map iframe{
+    height: 520px;
+  }
+}
+
+/* Tablet/Mobile: 1 columna (apilado) */
+@media (max-width: 980px){
+  .contact-grid{
+    grid-template-columns: 1fr;
+  }
+
+  /* orden natural: Datos -> Form -> Mapa (si querés Form abajo del mapa en móvil, avisame) */
+  .contact-card--map .contact-card__map iframe{
+    height: 460px;
+  }
+}
+
+/* =========================
+   MOBILE/TABLET: Orden fijo
+   Datos -> Mapa -> Formulario
+========================= */
+@media (max-width: 980px){
+  .contact-grid{
+    grid-template-columns: 1fr;
+  }
+
+  /* 1) Datos */
+  .contact-grid > .contact-card:not(.contact-card--form):not(.contact-card--map){
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* 2) Mapa */
+  .contact-card--map{
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  /* 3) Formulario */
+  .contact-card--form{
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .contact-card--map .contact-card__map iframe{
+    height: 460px;
+  }
+}
+
+@media (max-width: 520px){
+  .contact-card--map .contact-card__map iframe{
+    height: 420px;
+  }
+}
+
+/* =========================================
+   FIX: textos largos (email / links) en mobile
+   - permite salto de línea
+   - evita que se corte
+========================================= */
+
+/* En flex, si no ponés min-width:0, el texto NO puede encogerse */
+.contact-item{
+  align-items:flex-start;
+}
+
+.contact-item__icon{
+  flex: 0 0 38px; /* icono fijo */
+}
+
+.contact-item > div{
+  min-width: 0;   /* CLAVE: habilita que el texto se ajuste */
+}
+
+/* Wrap agresivo para emails/links largos */
+.contact-item p,
+.contact-item a{
+  max-width: 100%;
+  overflow-wrap: anywhere;   /* lo más efectivo */
+  word-break: break-word;    /* fallback */
+}
+
+/* Asegura que el <a> pueda partir línea */
+.contact-item a{
+  display: inline-block;
+}
+
+/* Ajustes finos en pantallas chicas */
+@media (max-width: 520px){
+  .contact-card__body{ padding: 14px; }
+  .contact-item{ padding: 10px; gap: 10px; }
+  .contact-item p{ font-size: 0.95rem; line-height: 1.45; }
 }
