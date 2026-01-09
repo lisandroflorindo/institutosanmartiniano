@@ -7,7 +7,7 @@
    - Footer year
    - Hook: setupNewsSlider() si existe
    - UX Enhancements
-   - ✅ AOS (solo Inicio / Institución / Carreras)
+   - ✅ AOS (automático si hay data-aos)
 ========================= */
 
 function setActiveNavLink() {
@@ -40,33 +40,112 @@ function setupYear() {
 }
 
 /* =========================
-   ✅ AOS (solo 3 páginas)
+   ✅ AOS (si existe data-aos)
+   - Carga AOS dinámicamente si falta (pages sin aos.js/aos.css)
+   - Refresh robusto para mobile
 ========================= */
+
+function loadAOSIfNeeded() {
+  // Si ya existe, listo
+  if (window.AOS) return Promise.resolve(true);
+
+  // Si ya está cargándose, esperamos
+  if (window.__aosLoadingPromise) return window.__aosLoadingPromise;
+
+  // Solo cargamos si realmente hay algo para animar
+  if (!document.querySelector("[data-aos]")) return Promise.resolve(false);
+
+  window.__aosLoadingPromise = new Promise((resolve) => {
+    // CSS
+    const hasCSS = Array.from(document.styleSheets || []).some((ss) => {
+      try {
+        return (ss.href || "").includes("unpkg.com/aos@");
+      } catch {
+        return false;
+      }
+    });
+
+    if (!hasCSS && !document.querySelector("link[data-aos-css]")) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://unpkg.com/aos@2.3.4/dist/aos.css";
+      link.setAttribute("data-aos-css", "true");
+      document.head.appendChild(link);
+    }
+
+    // JS
+    const existingScript = document.querySelector("script[data-aos-js]");
+    if (existingScript) {
+      existingScript.addEventListener("load", () => resolve(true), { once: true });
+      existingScript.addEventListener("error", () => resolve(false), { once: true });
+      return;
+    }
+
+    const s = document.createElement("script");
+    s.src = "https://unpkg.com/aos@2.3.4/dist/aos.js";
+    s.async = true;
+    s.setAttribute("data-aos-js", "true");
+
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);
+
+    document.head.appendChild(s);
+  });
+
+  return window.__aosLoadingPromise;
+}
+
 function setupAOS() {
-  if (!window.AOS) return;
-
-  const path = window.location.pathname.replace(/\/$/, "");
-  const allow = new Set([
-    "", "/",
-    "/index.html",
-    "/pages/instituto.html",
-    "/pages/carreras.html",
-  ]);
-
-  if (!allow.has(path)) return;
+  // Si no hay elementos, no hacemos nada
+  if (!document.querySelector("[data-aos]")) return;
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReduced) return;
 
-  window.AOS.init({
-    duration: 700,
-    easing: "ease-out",
-    once: true,
-    offset: 80,
-  });
+  loadAOSIfNeeded().then((ok) => {
+    if (!ok || !window.AOS) return;
 
-  // por si header/footer se inyectan o cambia el DOM
-  window.AOS.refresh();
+    // Evitar doble init
+    if (!window.__aosInited) {
+      window.AOS.init({
+        duration: 700,
+        easing: "ease-out",
+        once: true,
+        mirror: false,
+        disable: false, // ✅ no deshabilitar mobile
+        offset: 80,
+      });
+      window.__aosInited = true;
+    }
+
+    // Recalcular (clave en mobile por imágenes/altura)
+    if (typeof window.AOS.refreshHard === "function") {
+      window.AOS.refreshHard();
+    } else {
+      window.AOS.refresh();
+    }
+
+    // Hooks robustos (solo se enganchan una vez)
+    if (!window.__aosHooks) {
+      window.__aosHooks = true;
+
+      window.addEventListener("load", () => {
+        if (!window.AOS || !document.querySelector("[data-aos]")) return;
+        setTimeout(() => {
+          if (typeof window.AOS.refreshHard === "function") window.AOS.refreshHard();
+          else window.AOS.refresh();
+        }, 50);
+      });
+
+      window.addEventListener("orientationchange", () => {
+        if (!window.AOS || !document.querySelector("[data-aos]")) return;
+        setTimeout(() => {
+          if (typeof window.AOS.refreshHard === "function") window.AOS.refreshHard();
+          else window.AOS.refresh();
+        }, 250);
+      });
+    }
+  });
 }
 
 /* =========================
@@ -318,13 +397,18 @@ document.addEventListener("componentsLoaded", () => {
   setupYear();
   setupContactForm();
 
-  // ✅ AOS (solo en las 3 páginas permitidas)
+  // ✅ AOS (si hay data-aos)
   setupAOS();
 
   // Home slider noticias (si existe setupNewsSlider)
   if (typeof window.setupNewsSlider === "function") {
     window.setupNewsSlider();
   }
+});
+
+// Fallback (por si algo dispara tarde): init AOS apenas exista el DOM
+document.addEventListener("DOMContentLoaded", () => {
+  setupAOS();
 });
 
 /* ======================================
