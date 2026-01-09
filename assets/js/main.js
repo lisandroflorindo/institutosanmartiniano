@@ -5,15 +5,13 @@
    - Dropdowns (desktop hover / mobile acordeón)
    - Smooth anchors
    - Footer year
-   - Hook: setupNewsSlider() si existe
-   - UX Enhancements
-   - ✅ AOS (automático si hay data-aos)
+   - Contact form (fetch)
+   - ✅ AOS (scroll-trigger) + refresh robusto
 ========================= */
 
 function setActiveNavLink() {
   const path = window.location.pathname.replace(/\/$/, "");
 
-  // marcamos activos en ambos navs
   const links = document.querySelectorAll("#main-nav a, #sidebar-nav a, .nav a");
   links.forEach((a) => {
     const href = a.getAttribute("href");
@@ -27,7 +25,6 @@ function setActiveNavLink() {
       return;
     }
 
-    // match exacto o endsWith (para /pages/contacto.html)
     if (normalizedHref === path || path.endsWith(normalizedHref)) {
       a.classList.add("is-active");
     }
@@ -41,18 +38,16 @@ function setupYear() {
 
 /* =========================
    ✅ AOS (si existe data-aos)
-   - Carga AOS dinámicamente si falta (pages sin aos.js/aos.css)
-   - Refresh robusto para mobile
+   - Carga AOS dinámicamente si falta
+   - Agrega animaciones a header/footer inyectados
+   - Refresh al cambiar DOM/layout
 ========================= */
 
 function loadAOSIfNeeded() {
-  // Si ya existe, listo
   if (window.AOS) return Promise.resolve(true);
-
-  // Si ya está cargándose, esperamos
   if (window.__aosLoadingPromise) return window.__aosLoadingPromise;
 
-  // Solo cargamos si realmente hay algo para animar
+  // Solo si hay algo para animar
   if (!document.querySelector("[data-aos]")) return Promise.resolve(false);
 
   window.__aosLoadingPromise = new Promise((resolve) => {
@@ -85,65 +80,114 @@ function loadAOSIfNeeded() {
     s.src = "https://unpkg.com/aos@2.3.4/dist/aos.js";
     s.async = true;
     s.setAttribute("data-aos-js", "true");
-
     s.onload = () => resolve(true);
     s.onerror = () => resolve(false);
-
     document.head.appendChild(s);
   });
 
   return window.__aosLoadingPromise;
 }
 
+function addAOSDefaultsForInjectedLayout() {
+  // Header: aparece “ya” porque está en viewport, pero igual queda estandarizado
+  const header = document.querySelector(".site-header");
+  if (header && !header.hasAttribute("data-aos")) {
+    header.setAttribute("data-aos", "fade-down");
+    header.setAttribute("data-aos-duration", "600");
+    header.setAttribute("data-aos-once", "true");
+  }
+
+  // Footer: este sí se ve claramente “por scroll”
+  const footer = document.querySelector(".site-footer");
+  if (footer && !footer.hasAttribute("data-aos")) {
+    footer.setAttribute("data-aos", "fade-up");
+    footer.setAttribute("data-aos-duration", "650");
+    footer.setAttribute("data-aos-once", "true");
+  }
+}
+
+function refreshAOSHard() {
+  if (!window.AOS) return;
+  try {
+    if (typeof window.AOS.refreshHard === "function") window.AOS.refreshHard();
+    else window.AOS.refresh();
+  } catch {
+    // nada
+  }
+}
+
 function setupAOS() {
-  // Si no hay elementos, no hacemos nada
+  // Si no hay elementos AOS, no hacemos nada
   if (!document.querySelector("[data-aos]")) return;
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReduced) return;
 
+  // Asegura header/footer con AOS aunque se inyecten
+  addAOSDefaultsForInjectedLayout();
+
   loadAOSIfNeeded().then((ok) => {
     if (!ok || !window.AOS) return;
 
-    // Evitar doble init
     if (!window.__aosInited) {
       window.AOS.init({
         duration: 700,
         easing: "ease-out",
-        once: true,
+        once: true,     // ✅ aparece una vez al scrollear
         mirror: false,
-        disable: false, // ✅ no deshabilitar mobile
-        offset: 80,
+        disable: false, // ✅ NO deshabilitar mobile
+        offset: 90,     // un poco más “scroll feel”
       });
       window.__aosInited = true;
     }
 
-    // Recalcular (clave en mobile por imágenes/altura)
-    if (typeof window.AOS.refreshHard === "function") {
-      window.AOS.refreshHard();
-    } else {
-      window.AOS.refresh();
-    }
+    // Primer refresh (clave si hay imágenes/altura)
+    refreshAOSHard();
 
-    // Hooks robustos (solo se enganchan una vez)
+    // ✅ Hooks robustos (solo una vez)
     if (!window.__aosHooks) {
       window.__aosHooks = true;
 
+      // Al terminar de cargar todo
       window.addEventListener("load", () => {
         if (!window.AOS || !document.querySelector("[data-aos]")) return;
-        setTimeout(() => {
-          if (typeof window.AOS.refreshHard === "function") window.AOS.refreshHard();
-          else window.AOS.refresh();
-        }, 50);
+        setTimeout(refreshAOSHard, 80);
       });
 
+      // Cambios de orientación
       window.addEventListener("orientationchange", () => {
         if (!window.AOS || !document.querySelector("[data-aos]")) return;
-        setTimeout(() => {
-          if (typeof window.AOS.refreshHard === "function") window.AOS.refreshHard();
-          else window.AOS.refresh();
-        }, 250);
+        setTimeout(refreshAOSHard, 250);
       });
+
+      // Resize
+      window.addEventListener("resize", () => {
+        if (!window.AOS || !document.querySelector("[data-aos]")) return;
+        // throttle simple
+        clearTimeout(window.__aosResizeT);
+        window.__aosResizeT = setTimeout(refreshAOSHard, 120);
+      });
+
+      // ✅ MutationObserver: si se inyecta algo (include.js / news / etc), refrescamos
+      const mo = new MutationObserver(() => {
+        // Re-aplica AOS a header/footer si todavía no estaban
+        addAOSDefaultsForInjectedLayout();
+        refreshAOSHard();
+      });
+
+      mo.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+      });
+
+      // ✅ Cuando cargan imágenes lazy: refresca
+      document.addEventListener("load", (e) => {
+        const t = e.target;
+        if (t && t.tagName === "IMG" && document.querySelector("[data-aos]")) {
+          clearTimeout(window.__aosImgT);
+          window.__aosImgT = setTimeout(refreshAOSHard, 60);
+        }
+      }, true);
     }
   });
 }
@@ -179,17 +223,15 @@ function setupMobileMenu() {
     isOpen ? close() : open();
   });
 
-  // cerrar por overlay o botón X
   document.querySelectorAll("[data-sidebar-close]").forEach((el) => {
     el.addEventListener("click", close);
   });
 
-  // cerrar con ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") close();
   });
 
-  // ✅ CERRAR SOLO si es un link "real", NO si es un trigger de dropdown
+  // ✅ NO cerrar si es trigger de dropdown
   sidebar.addEventListener("click", (e) => {
     const a = e.target.closest("a");
     if (!a) return;
@@ -198,19 +240,14 @@ function setupMobileMenu() {
     const li = a.closest(".dropdown");
     const hasMenu = li && li.querySelector(".dropdown__menu");
 
-    // si es trigger con submenu -> NO cerrar (solo abre/cierra acordeón)
     if (isTrigger && hasMenu) return;
-
-    // si es un link normal o un item del submenu -> cerrar
     close();
   });
 
-  // si pasás a desktop, cerralo por si quedó abierto
   window.addEventListener("resize", () => {
     if (window.matchMedia("(min-width: 981px)").matches) close();
   });
 
-  // por si otras funciones lo necesitan
   window.__closeSidebar = close;
 }
 
@@ -243,7 +280,7 @@ function setupDropdownNav() {
 
       trigger.addEventListener("click", (e) => {
         const isMobile = window.matchMedia("(max-width: 980px)").matches;
-        if (!isMobile) return; // desktop lo maneja el hover CSS
+        if (!isMobile) return;
 
         e.preventDefault();
         e.stopPropagation();
@@ -256,7 +293,6 @@ function setupDropdownNav() {
       });
     });
 
-    // click fuera cierra (solo móvil)
     document.addEventListener("click", (e) => {
       const isMobile = window.matchMedia("(max-width: 980px)").matches;
       if (!isMobile) return;
@@ -300,6 +336,9 @@ function setupSmoothAnchors() {
   });
 }
 
+/* =========================
+   Contact form (fetch)
+========================= */
 function setupContactForm() {
   const form = document.getElementById("contact-form");
   if (!form) return;
@@ -397,7 +436,7 @@ document.addEventListener("componentsLoaded", () => {
   setupYear();
   setupContactForm();
 
-  // ✅ AOS (si hay data-aos)
+  // ✅ AOS (scroll)
   setupAOS();
 
   // Home slider noticias (si existe setupNewsSlider)
@@ -406,7 +445,7 @@ document.addEventListener("componentsLoaded", () => {
   }
 });
 
-// Fallback (por si algo dispara tarde): init AOS apenas exista el DOM
+// Fallback (por si algo dispara tarde)
 document.addEventListener("DOMContentLoaded", () => {
   setupAOS();
 });
@@ -417,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
 ====================================== */
 (function () {
   function initReveal() {
-    // ✅ Si hay AOS en la página, NO aplicamos reveal (evita opacity:0 raro)
+    // ✅ Si hay AOS en la página, NO aplicamos reveal
     if (document.querySelector("[data-aos]")) return;
 
     const targets = document.querySelectorAll(

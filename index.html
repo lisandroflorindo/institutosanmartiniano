@@ -12,9 +12,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-
-  <!-- ✅ AOS (solo para Inicio / Institución / Carreras) -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 
 <body>
@@ -26,24 +23,24 @@
     </section>
 
     <!-- SOBRE EL INSTITUTO -->
-    <section class="section" data-aos="fade-up">
+    <section class="section anim anim--up" style="--d: 0ms;">
       <div class="container">
-        <div class="section-title" data-aos="fade-up">
+        <div class="section-title anim anim--up" style="--d: 60ms;">
           <h2>Sobre el Instituto</h2>
         </div>
 
         <div class="about">
-          <div class="about__text" data-aos="fade-right" data-aos-delay="80">
+          <div class="about__text anim anim--left" style="--d: 120ms;">
             <p class="lead">
               El Instituto Superior Sanmartiniano es una institución de nivel superior orientada a la formación técnica y profesional. Ofrecemos tecnicaturas con cursada presencial y acompañamiento durante todo el trayecto formativo, con el objetivo de potenciar oportunidades laborales y de desarrollo.
             </p>
 
-            <div class="about__cta" data-aos="fade-up" data-aos-delay="140">
+            <div class="about__cta anim anim--up" style="--d: 180ms;">
               <a class="btn btn--primary" href="/pages/instituto.html">Conocer más</a>
             </div>
           </div>
 
-          <div class="about__media" data-aos="fade-left" data-aos-delay="120">
+          <div class="about__media anim anim--right" style="--d: 160ms;">
             <img
               src="/assets/img/autoridades/acto.png"
               alt="Instituto Sanmartiniano"
@@ -57,12 +54,12 @@
     <!-- CARRERAS -->
     <section class="section section--muted">
       <div class="container">
-        <div class="section-title" data-aos="fade-up">
+        <div class="section-title anim anim--up" style="--d: 60ms;">
           <h2>Nuestras Tecnicaturas</h2>
         </div>
 
         <div class="cards-media">
-          <a class="card-media" href="/pages/carreras-energias-renovables.html" data-aos="zoom-in" data-aos-delay="60">
+          <a class="card-media anim anim--zoom" href="/pages/carreras-energias-renovables.html" style="--d: 120ms;">
             <div class="card-media__img">
               <img
                 src="/assets/img/carreras/energiasrenovables3.jpg"
@@ -77,7 +74,7 @@
             </div>
           </a>
 
-          <a class="card-media" href="/pages/carreras-obras-viales.html" data-aos="zoom-in" data-aos-delay="140">
+          <a class="card-media anim anim--zoom" href="/pages/carreras-obras-viales.html" style="--d: 200ms;">
             <div class="card-media__img">
               <img
                 src="/assets/img/carreras/obrasviales2.jpg"
@@ -95,7 +92,7 @@
       </div>
     </section>
 
-    <!-- NOVEDADES (sin AOS: queda igual) -->
+    <!-- NOVEDADES -->
     <section class="section">
       <div class="container">
         <div class="section-title">
@@ -116,12 +113,12 @@
     <!-- CTA FINAL -->
     <section class="section section--muted">
       <div class="container">
-        <div class="cta-box" data-aos="fade-up">
+        <div class="cta-box anim anim--up" style="--d: 60ms;">
           <div>
             <h2>¿Querés inscribirte o hacer una consulta?</h2>
             <p>Contactanos para recibir información sobre carreras, requisitos y aranceles.</p>
           </div>
-          <div class="cta-box__actions" data-aos="fade-up" data-aos-delay="120">
+          <div class="cta-box__actions anim anim--up" style="--d: 140ms;">
             <a class="btn btn--primary" href="/pages/inscripciones.html">Inscripciones</a>
             <a class="btn btn--ghost" href="/pages/contacto.html">Contacto</a>
           </div>
@@ -133,10 +130,6 @@
   <div id="site-footer"></div>
 
   <script src="/assets/js/include.js"></script>
-
-  <!-- ✅ AOS JS -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/news.js"></script>
 </body>

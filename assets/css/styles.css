@@ -10,6 +10,10 @@
   --shadow: 0 10px 30px rgba(0,0,0,.08);
   --container: 1120px;
   --maxw: 1120px;
+
+  /* Animaciones */
+  --anim-dur: .70s;
+  --anim-ease: ease-out;
 }
 
 *{ box-sizing:border-box; }
@@ -29,10 +33,67 @@ p{ line-height:1.55; }
   margin-inline:auto;
 }
 
-/* =========================
+/* =========================================================
+   ✅ ANIMACIONES SOLO CSS (SIN AOS NI LIBRERÍAS)
+   - Soporta:
+     1) class="anim anim--up" style="--d:120ms;"
+     2) data-aos="fade-up" data-aos-delay="120" (sin AOS)
+========================================================= */
+
+@keyframes animIn { to { opacity: 1; transform: none; } }
+
+/* Base unificada: .anim y [data-aos] hacen lo mismo */
+:where(.anim, [data-aos]){
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  animation: animIn var(--anim-dur) var(--anim-ease) both;
+  animation-delay: var(--d, 0ms);
+  will-change: opacity, transform;
+}
+
+/* Variantes por clase (las que ya usás) */
+.anim--up{ transform: translate3d(0, 18px, 0); }
+.anim--left{ transform: translate3d(-18px, 0, 0); }
+.anim--right{ transform: translate3d(18px, 0, 0); }
+.anim--zoom{ transform: scale(.96); }
+
+/* Compatibilidad AOS -> transform equivalente (por si lo tenés en HTML) */
+:where([data-aos="fade-up"]){ transform: translate3d(0, 18px, 0); }
+:where([data-aos="fade-down"]){ transform: translate3d(0, -18px, 0); }
+:where([data-aos="fade-left"]){ transform: translate3d(-18px, 0, 0); }
+:where([data-aos="fade-right"]){ transform: translate3d(18px, 0, 0); }
+:where([data-aos="zoom-in"]){ transform: scale(.96); }
+
+/* Mapeo de delays de AOS (data-aos-delay="120") -> --d:120ms */
+:where([data-aos-delay="0"]){ --d: 0ms; }
+:where([data-aos-delay="40"]){ --d: 40ms; }
+:where([data-aos-delay="60"]){ --d: 60ms; }
+:where([data-aos-delay="80"]){ --d: 80ms; }
+:where([data-aos-delay="100"]){ --d: 100ms; }
+:where([data-aos-delay="120"]){ --d: 120ms; }
+:where([data-aos-delay="140"]){ --d: 140ms; }
+:where([data-aos-delay="160"]){ --d: 160ms; }
+:where([data-aos-delay="180"]){ --d: 180ms; }
+:where([data-aos-delay="200"]){ --d: 200ms; }
+:where([data-aos-delay="220"]){ --d: 220ms; }
+:where([data-aos-delay="240"]){ --d: 240ms; }
+:where([data-aos-delay="260"]){ --d: 260ms; }
+:where([data-aos-delay="280"]){ --d: 280ms; }
+:where([data-aos-delay="300"]){ --d: 300ms; }
+:where([data-aos-delay="360"]){ --d: 360ms; }
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  :where(.anim, [data-aos]){
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* =========================================================
    ✅ Animación Header / Footer (sin librerías)
-   - Funciona aunque se inyecten por include.js
-========================= */
+========================================================= */
 @keyframes headerDropIn{
   from{ opacity:0; transform: translateY(-10px); }
   to{ opacity:1; transform: translateY(0); }
@@ -45,7 +106,7 @@ p{ line-height:1.55; }
   animation: headerDropIn .55s ease-out both;
   will-change: opacity, transform;
 
-  /* FIX: Header por encima del hero */
+  /* Header por encima del hero */
   position: relative;
   z-index: 5000;
 }
@@ -85,7 +146,7 @@ p{ line-height:1.55; }
   background:var(--white);
   border-bottom:1px solid var(--border);
   position: relative;
-  z-index: 5000; /* FIX dropdown sobre hero */
+  z-index: 5000; /* dropdown sobre hero */
 }
 .navbar__inner{
   display:flex;
@@ -99,17 +160,17 @@ p{ line-height:1.55; }
   width:auto;
 }
 
-/* Buttons (unificado: antes estaba duplicado) */
+/* Buttons */
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap: 10px;              /* separa texto e ícono */
+  gap: 10px;
   padding:12px 16px;
   border-radius:12px;
   font-weight:600;
   border:1px solid transparent;
-  min-height:44px;        /* táctil */
+  min-height:44px;
 }
 
 /* ícono dentro de botón */
@@ -174,7 +235,7 @@ p{ line-height:1.55; }
 /* DROPDOWN */
 .dropdown{
   position:relative;
-  z-index: 5100; /* FIX */
+  z-index: 5100;
 }
 
 .nav__trigger::after{
@@ -202,7 +263,7 @@ p{ line-height:1.55; }
   transform: translateY(8px);
   pointer-events:none;
   transition: opacity .50s ease, transform .30s ease;
-  z-index: 5200; /* FIX */
+  z-index: 5200;
 }
 
 .dropdown__menu a{
@@ -226,7 +287,7 @@ p{ line-height:1.55; }
   pointer-events:auto;
 }
 
-/* ===== Icon buttons (estilo moderno) ===== */
+/* Icon buttons */
 .icon-link{
   width: 36px;
   height: 36px;
@@ -249,7 +310,6 @@ p{ line-height:1.55; }
   color: var(--blue);
 }
 
-/* Hover */
 .icon-link:hover{
   background: var(--blue);
   border-color: rgba(11,61,145,.35);
@@ -258,7 +318,6 @@ p{ line-height:1.55; }
 }
 .icon-link:hover i{ color: #fff; }
 
-/* Accesibilidad */
 .icon-link:focus-visible{
   outline: none;
   box-shadow: 0 0 0 4px rgba(11,61,145,.22), 0 14px 30px rgba(0,0,0,.10);
@@ -270,7 +329,7 @@ p{ line-height:1.55; }
   background-size:110% 100%;
   background-position:center;
   position:relative;
-  z-index: 0; /* FIX */
+  z-index: 0;
 }
 .hero::before{
   content:"";
@@ -352,7 +411,7 @@ p{ line-height:1.55; }
 }
 .step h3{ margin:0 0 6px; color:var(--blue); }
 
-/* News (grid tradicional si lo usás en alguna página) */
+/* News (grid tradicional) */
 .news-grid{
   display:grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
@@ -386,14 +445,14 @@ p{ line-height:1.55; }
 .news-card p{ margin:0 0 12px; opacity:.86; }
 .link{ color:var(--blue); font-weight:600; }
 
-/* ===== Slider de Novedades (Inicio) ===== */
+/* Slider de Novedades (Inicio) */
 .news-slider{ position:relative; }
 .news-row{
   display:flex;
   gap:16px;
   overflow-x:auto;
   scroll-behavior:smooth;
-  padding: 6px 62px 10px;          /* FIX carrusel (flechas + padding) */
+  padding: 6px 62px 10px;
   scroll-padding-left: 62px;
   scroll-padding-right: 62px;
   scroll-snap-type: x mandatory;
@@ -409,7 +468,6 @@ p{ line-height:1.55; }
   flex: 0 0 auto;
   scroll-snap-align: start;
 
-  /* FIX bordes perfectos */
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
@@ -461,7 +519,6 @@ p{ line-height:1.55; }
   font-size: 22px;
   user-select:none;
 
-  /* FIX: overlay centrado */
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -495,7 +552,7 @@ textarea{ min-height:120px; resize:vertical; }
   font-weight: 700;
 }
 
-/* ===== Galería dinámica ===== */
+/* Galería (base) */
 .gallery{
   margin-top:14px;
   display:grid;
@@ -511,7 +568,7 @@ textarea{ min-height:120px; resize:vertical; }
   box-shadow: var(--shadow);
 }
 
-/* ===== Mapa interactivo (click-to-enable) ===== */
+/* Mapa interactivo (click-to-enable) */
 .map-box{
   position: relative;
   border-radius: var(--radius);
@@ -589,31 +646,9 @@ textarea{ min-height:120px; resize:vertical; }
   transform: translate(-50%, 0);
 }
 
-/* ===== Animaciones base (reveal) ===== */
-.reveal{
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity .6s ease, transform .6s ease;
-  will-change: opacity, transform;
-}
-.reveal.is-visible{
-  opacity: 1;
-  transform: translateY(0);
-}
-@media (prefers-reduced-motion: reduce){
-  .reveal{ transition:none; transform:none; opacity:1; }
-}
-
-/* FIX: evitar que el carrusel de novedades quede invisible por .reveal */
-#news-list.reveal,
-.news-row.reveal{
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* =========================
+/* =========================================================
    RESPONSIVE (Tablet/Mobile)
-========================= */
+========================================================= */
 @media (max-width: 980px){
   .container{ width: min(var(--maxw), 100% - 24px); }
 
@@ -693,7 +728,6 @@ textarea{ min-height:120px; resize:vertical; }
     font-size: 22px;
   }
 
-  /* Carrusel: padding lateral menor + botones más pegados al borde */
   .news-row{
     padding: 6px 54px 10px;
     scroll-padding-left: 54px;
@@ -703,9 +737,9 @@ textarea{ min-height:120px; resize:vertical; }
   .news-slider__btn[data-news-dir="1"]{ right: 8px; }
 }
 
-/* =========================
+/* =========================================================
    SIDEBAR (Mobile/Tablet)
-========================= */
+========================================================= */
 .sidebar-overlay{
   position:fixed;
   inset:0;
@@ -713,7 +747,7 @@ textarea{ min-height:120px; resize:vertical; }
   opacity:0;
   pointer-events:none;
   transition: opacity .22s ease;
-  z-index: 999;
+  z-index: 9998;
 }
 
 .sidebar{
@@ -727,7 +761,7 @@ textarea{ min-height:120px; resize:vertical; }
   box-shadow: var(--shadow);
   transform: translateX(-105%);
   transition: transform .25s ease;
-  z-index: 1000;
+  z-index: 9999;
   display:flex;
   flex-direction:column;
   gap:14px;
@@ -915,16 +949,414 @@ textarea{ min-height:120px; resize:vertical; }
   }
 }
 
-/* ===== Sidebar/Overlay: z-index y bloqueo visual ===== */
-.sidebar-overlay{
-  z-index: 9998; /* por encima del hero/header */
-}
-.sidebar{
-  z-index: 9999; /* por encima del overlay */
+/* =========================================================
+   HOME (base global que ya estás usando)
+========================================================= */
+.section-title{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
 }
 
-/* Si por algún motivo querés depender del body class */
-body.sidebar-open .sidebar-overlay{
-  opacity: 1;
-  pointer-events: auto;
+.lead{
+  font-size:1.05rem;
+  opacity:.95;
+}
+
+/* About (texto + imagen) */
+.about{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:16px;
+  align-items:stretch;
+}
+
+.about__text{
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.about__cta{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.about__media{
+  border-radius: var(--radius);
+  overflow:hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: var(--white);
+}
+
+.about__media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  min-height: 240px;
+}
+
+/* Cards con imagen (Carreras) */
+.cards-media{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:16px;
+}
+
+.card-media{
+  display:grid;
+  grid-template-columns: 1fr;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+  transition: transform .15s ease;
+}
+
+.card-media:hover{
+  transform: translateY(-6px);
+}
+
+.card-media__img{
+  height: 210px;
+  background: var(--muted);
+}
+
+.card-media__img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.card-media__body{
+  padding: 16px;
+}
+
+.card-media__body h3{
+  margin: 0 0 8px;
+  color: var(--blue);
+}
+
+.card-media__body p{
+  margin: 0 0 12px;
+  opacity: .86;
+}
+
+.card-media__link{
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* CTA final */
+.cta-box{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.cta-box__actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* Responsive */
+@media (max-width: 920px){
+  .about{ grid-template-columns:1fr; }
+  .cards-media{ grid-template-columns:1fr; }
+  .cta-box{ flex-direction:column; align-items:flex-start; }
+}
+
+/* Mobile: slider táctil, ocultar flechas */
+@media (max-width: 520px){
+  .news-slider__btn{ display:none; }
+}
+
+/* =========================================================
+   INSTITUTO (base global que ya estás usando)
+========================================================= */
+.section-sub{
+  margin:6px 0 0;
+  opacity:.85;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:16px;
+}
+
+/* Autoridades */
+.staff-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:16px;
+  margin-top:14px;
+}
+
+.staff-card{
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+}
+
+.staff-photo{
+  height: 210px;
+  background: var(--muted);
+}
+
+.staff-photo img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+.staff-body{
+  padding: 16px;
+}
+
+.staff-body h3{
+  margin:0 0 6px;
+}
+
+.staff-role{
+  margin:0 0 10px;
+  color: var(--blue);
+  font-weight:700;
+}
+
+.staff-text{
+  margin:0;
+  opacity:.86;
+}
+
+.hint{
+  margin-top:14px;
+  opacity:.8;
+}
+
+/* Galería con items (para instituto/carreras) */
+.gallery-item{
+  border-radius: var(--radius);
+  overflow:hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: var(--muted);
+  height: 220px;
+}
+.gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+/* San Martín */
+.sanmartin{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:16px;
+  align-items:stretch;
+  margin-top:14px;
+}
+
+.sanmartin__media{
+  border-radius: var(--radius);
+  overflow:hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: var(--muted);
+  min-height: 320px;
+}
+
+.sanmartin__media img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+@media (max-width: 920px){
+  .info-grid{ grid-template-columns:1fr; }
+  .staff-grid{ grid-template-columns:1fr; }
+  .gallery{ grid-template-columns:1fr; }
+  .gallery-item{ height: 200px; }
+  .sanmartin{ grid-template-columns:1fr; }
+  .sanmartin__media{ min-height: 240px; }
+}
+
+/* =========================================================
+   CARRERAS (base global que ya estás usando)
+========================================================= */
+
+/* Carreras: 2 cards lado a lado */
+.career-list{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:16px;
+}
+
+.career-card{
+  display:flex;
+  flex-direction:column;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+  transition: transform .15s ease;
+}
+
+.career-card:hover{
+  transform: translateY(-20px);
+}
+
+.career-card__poster{
+  padding:12px;
+  background: var(--muted);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.career-card__poster img{
+  width:100%;
+  height:auto;
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.career-card__body{
+  padding:16px;
+}
+
+.career-card__body h3{
+  margin:0 0 10px;
+  color: var(--blue);
+}
+
+.career-badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.career-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+/* Detalle carrera */
+.career-detail{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:16px;
+  align-items:start;
+}
+
+.career-side .career-poster{
+  width:100%;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background:#fff;
+}
+
+.career-facts{
+  margin-top:12px;
+  display:grid;
+  gap:8px;
+}
+
+.fact{
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+}
+
+/* Acordeón */
+.accordion{
+  display:grid;
+  gap:10px;
+}
+
+.acc-btn{
+  width:100%;
+  text-align:left;
+  padding:14px 14px;
+  border-radius: 14px;
+  border:1px solid var(--border);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  cursor:pointer;
+  font-weight:800;
+}
+
+.acc-panel{
+  display:none;
+  padding:14px 16px;
+  border-radius: 14px;
+  border:1px solid var(--border);
+  background: var(--white);
+}
+
+.acc-panel h3{
+  margin:10px 0 8px;
+  color: var(--blue);
+}
+
+.acc-panel ul{ margin:0; }
+.acc-panel li{ margin:6px 0; }
+
+.acc-btn.is-open + .acc-panel{
+  display:block;
+}
+
+/* PDF embebido */
+.pdf-viewer{
+  width:100%;
+  height: 760px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow:hidden;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.pdf-viewer iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+@media (max-width: 980px){
+  .career-detail{ grid-template-columns: 1fr; }
+  .career-list{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 920px){
+  .pdf-viewer{ height: 560px; }
+}
+@media (max-width: 520px){
+  .pdf-viewer{ height: 480px; }
 }
